@@ -289,14 +289,14 @@
    trial; just don't add a payment method and it reverts to Free
    automatically after 14 days with no charge.
 ------------------------------------------------------ */
-const AIRTABLE_TOKEN = "patAQ0U1FuMjNpkAN";
+const AIRTABLE_TOKEN = "patRYw002bs6LCBHg.ed5887c81176c1156aaf213744e09794ada3b4e331e966c70dc1d4b98f4939bf";
 const AIRTABLE_BASE_ID = "appSwZdqAt1t8tdlu";
 const JOBS_TABLE = "Jobs";
 const TECHS_TABLE = "Techs";
 
 function configured(){
   return AIRTABLE_TOKEN && AIRTABLE_BASE_ID
-    && AIRTABLE_TOKEN !== "patAQ0U1FuMjNpkAN"
+    && AIRTABLE_TOKEN !== "patRYw002bs6LCBHg.ed5887c81176c1156aaf213744e09794ada3b4e331e966c70dc1d4b98f4939bf"
     && AIRTABLE_BASE_ID !== "appSwZdqAt1t8tdlu";
 }
 async function airtableGet(table){
