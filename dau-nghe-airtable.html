@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dấu Nghề</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1512;
+    --ink-soft:#4A443E;
+    --lacquer:#A6291D;
+    --lacquer-deep:#7E1E15;
+    --gold:#C9A227;
+    --gold-soft:#E3C874;
+    --jade:#2F5D50;
+    --jade-soft:#4E8577;
+    --ivory:#F2EAD8;
+    --ivory-panel:#FBF7EE;
+    --line:#DCD0B4;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- header ---------- */
+  header{
+    border-bottom:1px solid var(--line);
+    background:var(--ivory-panel);
+    position:sticky; top:0; z-index:50;
+  }
+  .header-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:1080px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; cursor:pointer;}
+  .brand-mark{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--lacquer); position:relative; flex-shrink:0;
+    box-shadow:0 0 0 1.5px var(--gold-soft), 0 0 0 3px transparent;
+  }
+  .brand-mark::after{
+    content:'';
+    position:absolute; inset:6px; border-radius:50%;
+    border:1px solid var(--gold-soft);
+  }
+  .brand-name{
+    font-family:'Playfair Display',serif; font-weight:700; font-size:20px; letter-spacing:0.01em;
+  }
+  .brand-name .vn{color:var(--lacquer);}
+  nav{display:flex; gap:4px; align-items:center;}
+  .nav-btn{
+    font-family:'Inter'; font-size:13.5px; font-weight:600; letter-spacing:0.02em;
+    padding:8px 14px; border-radius:var(--radius); border:1px solid transparent;
+    background:transparent; color:var(--ink-soft); cursor:pointer;
+    text-transform:uppercase; font-size:12px;
+  }
+  .nav-btn.active{background:var(--ink); color:var(--ivory-panel);}
+  .nav-btn:hover:not(.active){border-color:var(--line); color:var(--ink);}
+  .lang-toggle{
+    display:flex; border:1px solid var(--ink); border-radius:20px; overflow:hidden; margin-left:8px;
+  }
+  .lang-toggle button{
+    border:none; background:transparent; padding:6px 12px; font-size:11.5px; font-weight:700;
+    letter-spacing:0.04em; cursor:pointer; color:var(--ink-soft); font-family:'IBM Plex Mono';
+  }
+  .lang-toggle button.on{background:var(--ink); color:var(--ivory-panel);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:64px 24px 56px; position:relative; overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-inner{
+    max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1.3fr 0.9fr; gap:48px; align-items:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--lacquer); font-weight:500; margin-bottom:18px; display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{content:'';width:20px;height:1px;background:var(--lacquer);}
+  h1{
+    font-family:'Playfair Display', serif; font-weight:800; font-size:44px; line-height:1.08;
+    margin:0 0 20px; letter-spacing:-0.01em;
+  }
+  h1 em{font-style:italic; color:var(--lacquer);}
+  .hero-sub{font-size:16.5px; line-height:1.6; color:var(--ink-soft); max-width:480px; margin:0 0 28px;}
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Inter'; font-weight:700; font-size:13.5px; letter-spacing:0.02em;
+    padding:13px 22px; border-radius:var(--radius); cursor:pointer; border:1.5px solid var(--ink);
+    text-transform:uppercase; font-size:12.5px;
+  }
+  .btn-primary{background:var(--ink); color:var(--ivory-panel);}
+  .btn-primary:hover{background:var(--lacquer-deep); border-color:var(--lacquer-deep);}
+  .btn-secondary{background:transparent; color:var(--ink);}
+  .btn-secondary:hover{background:var(--ink); color:var(--ivory-panel);}
+
+  .seal-stage{display:flex; align-items:center; justify-content:center; position:relative;}
+  .seal{
+    width:230px; height:230px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #C1352A, var(--lacquer-deep) 72%);
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    transform:rotate(-7deg);
+    box-shadow: 0 0 0 3px var(--gold-soft), 0 0 0 5px rgba(201,162,39,0.25), 0 18px 40px -14px rgba(126,30,21,0.55);
+    position:relative;
+  }
+  .seal::before{
+    content:''; position:absolute; inset:14px; border:1.5px dashed rgba(227,200,116,0.55); border-radius:50%;
+  }
+  .seal-text{color:var(--ivory); font-family:'Playfair Display'; }
+  .seal-text .big{font-size:15px; letter-spacing:0.14em; font-weight:700; display:block; text-transform:uppercase;}
+  .seal-text .small{font-family:'IBM Plex Mono'; font-size:10.5px; letter-spacing:0.1em; opacity:0.85; display:block; margin-top:8px;}
+  .seal-text .cn{font-size:22px; display:block; margin-top:10px; letter-spacing:0.06em;}
+
+  /* ---------- stat strip ---------- */
+  .stats{
+    border-bottom:1px solid var(--line); background:var(--ink); color:var(--ivory-panel);
+  }
+  .stats-row{
+    max-width:1080px; margin:0 auto; padding:20px 24px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+  }
+  .stat b{display:block; font-family:'Playfair Display'; font-size:24px; color:var(--gold-soft);}
+  .stat span{font-size:11.5px; color:#C9C2B0; letter-spacing:0.02em;}
+
+  /* ---------- main content ---------- */
+  main{padding:44px 24px 90px;}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:22px; gap:16px; flex-wrap:wrap;}
+  .section-head h2{font-family:'Playfair Display'; font-size:26px; margin:0 0 4px;}
+  .section-head p{margin:0; color:var(--ink-soft); font-size:14px;}
+
+  .filters{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px;}
+  .filters select, .filters input{
+    font-family:'Inter'; font-size:13px; padding:9px 12px; border:1px solid var(--line);
+    background:var(--ivory-panel); border-radius:var(--radius); color:var(--ink);
+  }
+
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  .card{
+    background:var(--ivory-panel); border:1px solid var(--line); padding:20px; border-radius:var(--radius);
+    position:relative;
+  }
+  .card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:10px;}
+  .card-title{font-family:'Playfair Display'; font-weight:700; font-size:18px; margin:0 0 3px;}
+  .card-sub{font-size:12.5px; color:var(--ink-soft); font-family:'IBM Plex Mono';}
+  .badge{
+    display:inline-flex; align-items:center; gap:5px; font-family:'IBM Plex Mono'; font-size:10px;
+    letter-spacing:0.06em; text-transform:uppercase; padding:5px 9px; border-radius:20px; white-space:nowrap;
+  }
+  .badge.verified{background:rgba(47,93,80,0.12); color:var(--jade); border:1px solid rgba(47,93,80,0.3);}
+  .badge.unverified{background:rgba(74,68,62,0.08); color:var(--ink-soft); border:1px solid var(--line);}
+  .badge .dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+
+  .card-body{font-size:13.5px; color:var(--ink-soft); line-height:1.55; margin-bottom:12px;}
+  .tags{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px;}
+  .tag{
+    font-size:11px; padding:4px 9px; background:rgba(166,41,29,0.07); color:var(--lacquer-deep);
+    border-radius:20px; font-family:'IBM Plex Mono'; letter-spacing:0.02em;
+  }
+  .card-foot{display:flex; justify-content:space-between; align-items:center; border-top:1px dashed var(--line); padding-top:12px;}
+  .pay{font-family:'Playfair Display'; font-weight:700; font-size:15px; color:var(--jade);}
+  .loc{font-size:12px; color:var(--ink-soft);}
+  .empty{
+    grid-column:1/-1; text-align:center; padding:56px 24px; border:1.5px dashed var(--line); border-radius:var(--radius);
+    color:var(--ink-soft); font-size:14px;
+  }
+
+  /* ---------- forms ---------- */
+  .form-wrap{max-width:640px; margin:0 auto;}
+  .form-card{background:var(--ivory-panel); border:1px solid var(--line); padding:32px; border-radius:var(--radius);}
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-size:12px; font-weight:700; letter-spacing:0.03em; text-transform:uppercase; margin-bottom:7px; color:var(--ink-soft); font-family:'IBM Plex Mono';}
+  .field input, .field select, .field textarea{
+    width:100%; font-family:'Inter'; font-size:14px; padding:11px 12px; border:1px solid var(--line);
+    background:#fff; border-radius:var(--radius); color:var(--ink);
+  }
+  .field textarea{resize:vertical; min-height:70px;}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .checkbox-row{display:flex; align-items:flex-start; gap:10px; padding:14px; background:rgba(47,93,80,0.06); border:1px solid rgba(47,93,80,0.25); border-radius:var(--radius); margin-bottom:18px;}
+  .checkbox-row input{width:auto; margin-top:3px;}
+  .checkbox-row .cb-text{font-size:12.5px; color:var(--ink-soft); line-height:1.5;}
+  .checkbox-row .cb-text b{color:var(--jade);}
+  .submit-row{display:flex; justify-content:flex-end; gap:10px; margin-top:8px;}
+  .note{font-size:12px; color:var(--ink-soft); margin-top:14px; line-height:1.5; font-style:italic;}
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+    background:var(--ink); color:var(--ivory-panel); padding:13px 22px; border-radius:20px; font-size:13px;
+    font-weight:600; box-shadow:0 10px 30px -8px rgba(0,0,0,0.4); z-index:100; opacity:0; pointer-events:none;
+    transition:opacity 0.25s, transform 0.25s; font-family:'Inter';
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(-6px);}
+
+  footer{border-top:1px solid var(--line); padding:26px 24px; text-align:center; font-size:12px; color:var(--ink-soft); font-family:'IBM Plex Mono';}
+
+  .banner{
+    margin-top:20px; padding:16px 20px; border-radius:var(--radius); font-size:13px; line-height:1.6;
+    border:1px solid var(--gold); background:rgba(201,162,39,0.1); color:var(--ink);
+  }
+  .banner.error{border-color:var(--lacquer); background:rgba(166,41,29,0.08);}
+  .banner b{display:block; font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:6px;}
+  .banner code{background:rgba(0,0,0,0.06); padding:1px 5px; border-radius:3px; font-family:'IBM Plex Mono'; font-size:12px;}
+
+  @media (max-width:760px){
+    .hero-inner{grid-template-columns:1fr;}
+    .seal-stage{order:-1;}
+    .grid{grid-template-columns:1fr;}
+    .stats-row{grid-template-columns:repeat(2,1fr);}
+    h1{font-size:32px;}
+    .row2{grid-template-columns:1fr;}
+    .header-row{flex-wrap:wrap; gap:10px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div class="brand" onclick="setTab('home')">
+      <div class="brand-mark"></div>
+      <div class="brand-name">Dấu <span class="vn">Nghề</span></div>
+    </div>
+    <nav id="navBtns"></nav>
+    <div class="lang-toggle">
+      <button id="btnEN" class="on" onclick="setLang('en')">EN</button>
+      <button id="btnVI" onclick="setLang('vi')">VI</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="heroSection">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow" id="eyebrow"></div>
+      <h1 id="heroTitle"></h1>
+      <p class="hero-sub" id="heroSub"></p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary" onclick="setTab('jobs')" id="ctaBrowse"></button>
+        <button class="btn btn-secondary" onclick="setTab('postJob')" id="ctaPost"></button>
+      </div>
+    </div>
+    <div class="seal-stage">
+      <div class="seal">
+        <div class="seal-text">
+          <span class="big" id="sealTop">Verified</span>
+          <span class="cn">合格</span>
+          <span class="small" id="sealBottom">License checked</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stats-row" id="statsRow"></div>
+</div>
+
+<div class="wrap" id="bannerArea"></div>
+<main class="wrap" id="mainArea"></main>
+
+<footer id="footerText"></footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------------- AIRTABLE CONFIG ----------------
+   1. Create a free account at airtable.com
+   2. Create a base with two tables named exactly: Jobs and Techs
+      Jobs table fields:  Salon (text), Location (text), Position (text),
+        PayType (text), PayAmount (text), Description (long text), Verified (checkbox)
+      Techs table fields: Name (text), License (text), LicenseState (text),
+        Years (text), Specialties (text), Languages (text), Availability (text),
+        Bio (long text), Verified (checkbox)
+   3. Get your Base ID from Help > API documentation (starts with "app...")
+   4. Create a Personal Access Token at airtable.com/create/tokens
+      - Scopes: data.records:read, data.records:write
+      - Access: only this base
+   5. Paste both values below, replacing the placeholder strings.
+
+   Note on the free plan: Airtable Free supports 1,000 records/base and full
+   API access — plenty for a pilot. New accounts auto-start a 14-day "Team"
+   trial; just don't add a payment method and it reverts to Free
+   automatically after 14 days with no charge.
+------------------------------------------------------ */
+const AIRTABLE_TOKEN = "PASTE_YOUR_TOKEN_HERE";
+const AIRTABLE_BASE_ID = "PASTE_YOUR_BASE_ID_HERE";
+const JOBS_TABLE = "Jobs";
+const TECHS_TABLE = "Techs";
+
+function configured(){
+  return AIRTABLE_TOKEN && AIRTABLE_BASE_ID
+    && AIRTABLE_TOKEN !== "PASTE_YOUR_TOKEN_HERE"
+    && AIRTABLE_BASE_ID !== "PASTE_YOUR_BASE_ID_HERE";
+}
+async function airtableGet(table){
+  const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(table)}?pageSize=100`, {
+    headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
+  });
+  if(!res.ok) throw new Error('Airtable GET failed: '+res.status);
+  const data = await res.json();
+  return data.records;
+}
+async function airtablePost(table, fields){
+  const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(table)}`, {
+    method:'POST',
+    headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type':'application/json' },
+    body: JSON.stringify({ fields, typecast: true })
+  });
+  if(!res.ok){ const errText = await res.text(); throw new Error('Airtable POST failed: '+res.status+' '+errText); }
+  return res.json();
+}
+function timeAgo(iso){
+  if(!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString(undefined,{month:'short', day:'numeric', year:'numeric'});
+}
+
+/* ---------------- i18n ---------------- */
+const STR = {
+  en:{
+    eyebrow:"Verified nail industry network",
+    heroTitle:'A trade earns its <em>mark.</em>',
+    heroSub:"A bilingual job board and verified profile system built for Vietnamese-American nail salons and technicians — real license checks, real reputations, no guessing.",
+    ctaBrowse:"Browse open jobs",
+    ctaPost:"Post a job",
+    sealTop:"Verified",
+    sealBottom:"License checked",
+    stat1n:"salons", stat2n:"technicians", stat3n:"jobs posted", stat4n:"verified profiles",
+    navHome:"Home", navJobs:"Jobs", navTechs:"Technicians", navPostJob:"Post a Job", navCreateProfile:"Create Profile",
+    jobsTitle:"Open positions", jobsSub:"Search across verified salons hiring now.",
+    techsTitle:"Technician directory", techsSub:"Verified, experienced technicians ready to work.",
+    filterAll:"All locations", filterPosition:"All positions", search:"Search…",
+    verified:"Verified", unverified:"Unverified",
+    empty1:"No jobs posted yet. Be the first — post an opening.",
+    empty2:"No technician profiles yet. Be the first to create one.",
+    perHour:"/hr", commission:"commission", boothRent:"booth rent",
+    postJobTitle:"Post an opening", postJobSub:"Free to post. Structured, bilingual, and searchable — not buried in a feed.",
+    salonName:"Salon name", location:"City, state", position:"Position needed", payType:"Pay structure", payAmount:"Pay details (e.g. $22–28/hr, or 60% commission)",
+    description:"Anything else techs should know (schedule, team, culture)",
+    verifyCheckSalon:"I confirm this salon is licensed to operate and this listing is accurate.",
+    submitJob:"Post job", 
+    createProfileTitle:"Create your profile", createProfileSub:"Build a verified résumé technicians and salons can trust.",
+    fullName:"Full name", licenseNumber:"License number", licenseState:"License state", yearsExp:"Years of experience",
+    specialties:"Specialties (comma separated, e.g. Acrylic, Gel-X, Nail Art)", languages:"Languages spoken", availability:"Availability", bio:"Short bio",
+    verifyCheckTech:"I confirm my license number is accurate and current. Dấu Nghề checks license numbers against public state board records before granting a Verified badge.",
+    submitProfile:"Create profile",
+    posted:"Posted",
+    footer:"Dấu Nghề — built for the trade, by the trade. Prototype v0.1 — data stored locally to this session for demo purposes.",
+    jobPostedToast:"Job posted — it's now live in the listings.",
+    profileCreatedToast:"Profile created — verification pending review.",
+    yrs:"yrs exp",
+  },
+  vi:{
+    eyebrow:"Mạng lưới nghề nail đã xác minh",
+    heroTitle:'Nghề có <em>dấu</em> của nó.',
+    heroSub:"Bảng tin việc làm song ngữ và hệ thống hồ sơ xác minh dành cho tiệm nail và thợ nail người Việt tại Mỹ — kiểm tra bằng cấp thật, uy tín thật, không phải đoán mò.",
+    ctaBrowse:"Xem việc làm",
+    ctaPost:"Đăng tuyển",
+    sealTop:"Đã xác minh",
+    sealBottom:"Đã kiểm tra bằng",
+    stat1n:"tiệm nail", stat2n:"thợ nail", stat3n:"tin tuyển dụng", stat4n:"hồ sơ đã xác minh",
+    navHome:"Trang chủ", navJobs:"Việc làm", navTechs:"Thợ nail", navPostJob:"Đăng tuyển", navCreateProfile:"Tạo hồ sơ",
+    jobsTitle:"Vị trí đang tuyển", jobsSub:"Tìm kiếm từ các tiệm đã xác minh đang tuyển thợ.",
+    techsTitle:"Danh bạ thợ nail", techsSub:"Thợ nail đã xác minh, có kinh nghiệm, sẵn sàng làm việc.",
+    filterAll:"Tất cả khu vực", filterPosition:"Tất cả vị trí", search:"Tìm kiếm…",
+    verified:"Đã xác minh", unverified:"Chưa xác minh",
+    empty1:"Chưa có tin tuyển dụng. Hãy là người đầu tiên đăng tin.",
+    empty2:"Chưa có hồ sơ thợ nail. Hãy là người đầu tiên tạo hồ sơ.",
+    perHour:"/giờ", commission:"hoa hồng", boothRent:"thuê ghế",
+    postJobTitle:"Đăng tin tuyển dụng", postJobSub:"Đăng miễn phí. Có cấu trúc, song ngữ, dễ tìm kiếm — không bị chìm trong newsfeed.",
+    salonName:"Tên tiệm", location:"Thành phố, tiểu bang", position:"Vị trí cần tuyển", payType:"Hình thức trả lương", payAmount:"Chi tiết lương (VD: $22–28/giờ, hoặc 60% hoa hồng)",
+    description:"Thông tin khác thợ nên biết (lịch làm, đội ngũ, môi trường)",
+    verifyCheckSalon:"Tôi xác nhận tiệm này có giấy phép hoạt động và tin đăng này chính xác.",
+    submitJob:"Đăng tin",
+    createProfileTitle:"Tạo hồ sơ của bạn", createProfileSub:"Xây dựng hồ sơ uy tín mà thợ và tiệm có thể tin tưởng.",
+    fullName:"Họ và tên", licenseNumber:"Số bằng", licenseState:"Tiểu bang cấp bằng", yearsExp:"Số năm kinh nghiệm",
+    specialties:"Chuyên môn (cách nhau bằng dấu phẩy, VD: Bột, Gel-X, Vẽ nail)", languages:"Ngôn ngữ", availability:"Thời gian rảnh", bio:"Giới thiệu ngắn",
+    verifyCheckTech:"Tôi xác nhận số bằng của tôi chính xác và còn hiệu lực. Dấu Nghề sẽ kiểm tra số bằng với hồ sơ công khai của tiểu bang trước khi cấp huy hiệu Đã xác minh.",
+    submitProfile:"Tạo hồ sơ",
+    posted:"Đăng lúc",
+    footer:"Dấu Nghề — xây dựng bởi nghề, cho nghề. Bản thử nghiệm v0.1 — dữ liệu lưu tạm cho phiên demo này.",
+    jobPostedToast:"Đã đăng tin — tin đã hiển thị trong danh sách.",
+    profileCreatedToast:"Đã tạo hồ sơ — đang chờ xác minh.",
+    yrs:"năm kinh nghiệm",
+  }
+};
+
+let lang = 'en';
+let tab = 'home';
+let jobs = [];
+let techs = [];
+
+const SEED_JOBS = [
+  {id:'j1', salon:"Lotus Nails & Spa", location:"Falls Church, VA", position:"Acrylic & Gel Tech", payType:"hourly", payAmount:"$24–30/hr + tips", desc:"Busy shopping-center location, steady walk-ins, supportive team. English or Vietnamese fine.", verified:true, posted:"3 days ago"},
+  {id:'j2', salon:"Sunset Nail Bar", location:"Houston, TX", position:"Full Set Tech", payType:"commission", payAmount:"60% commission, keep 100% tips", desc:"Booth rental also available. Flexible schedule.", verified:true, posted:"1 week ago"},
+  {id:'j3', salon:"Golden Orchid Nails", location:"Orange County, CA", position:"Nail Art Specialist", payType:"hourly", payAmount:"$28–35/hr", desc:"High-end clientele, looking for someone strong in freehand nail art and 3D design.", verified:false, posted:"2 days ago"},
+];
+const SEED_TECHS = [
+  {id:'t1', name:"Mai T.", license:"VA-NT-88231", licenseState:"VA", years:"6", specialties:["Acrylic","Gel-X","Ombre"], languages:"Vietnamese, English", availability:"Full-time, weekends flexible", bio:"6 years experience, worked in 2 salons in Northern VA. Specializes in structured gel and ombre.", verified:true},
+  {id:'t2', name:"Kim N.", license:"TX-NT-51902", licenseState:"TX", years:"2", specialties:["Manicure","Pedicure","Dip Powder"], languages:"Vietnamese, English", availability:"Part-time", bio:"Recent graduate, eager to learn advanced techniques. Comfortable with high client volume.", verified:false},
+];
+
+let dataError = null;
+
+async function loadData(){
+  if(!configured()){
+    jobs = SEED_JOBS; techs = SEED_TECHS;
+    render();
+    return;
+  }
+  dataError = null;
+  try{
+    const jrecs = await airtableGet(JOBS_TABLE);
+    jobs = jrecs.map(r => ({
+      id: r.id,
+      salon: r.fields.Salon || '',
+      location: r.fields.Location || '',
+      position: r.fields.Position || '',
+      payType: r.fields.PayType || 'hourly',
+      payAmount: r.fields.PayAmount || '',
+      desc: r.fields.Description || '',
+      verified: !!r.fields.Verified,
+      posted: timeAgo(r.createdTime)
+    }));
+    const trecs = await airtableGet(TECHS_TABLE);
+    techs = trecs.map(r => ({
+      id: r.id,
+      name: r.fields.Name || '',
+      license: r.fields.License || '',
+      licenseState: r.fields.LicenseState || '',
+      years: r.fields.Years || '0',
+      specialties: (r.fields.Specialties || '').split(',').map(s=>s.trim()).filter(Boolean),
+      languages: r.fields.Languages || '',
+      availability: r.fields.Availability || '',
+      bio: r.fields.Bio || '',
+      verified: !!r.fields.Verified
+    }));
+  }catch(e){
+    console.error(e);
+    dataError = e.message;
+    jobs = []; techs = [];
+  }
+  render();
+}
+
+function t(key){ return STR[lang][key]; }
+
+function setLang(l){
+  lang = l;
+  document.getElementById('btnEN').classList.toggle('on', l==='en');
+  document.getElementById('btnVI').classList.toggle('on', l==='vi');
+  render();
+}
+function setTab(tb){ tab = tb; render(); window.scrollTo({top: tb==='home'?0:document.getElementById('mainArea').offsetTop-80, behavior:'smooth'}); }
+
+function showToast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 2600);
+}
+
+function renderNav(){
+  const tabs = [['home','navHome'],['jobs','navJobs'],['techs','navTechs'],['postJob','navPostJob'],['createProfile','navCreateProfile']];
+  document.getElementById('navBtns').innerHTML = tabs.map(([id,key])=>
+    `<button class="nav-btn ${tab===id?'active':''}" onclick="setTab('${id}')">${t(key)}</button>`
+  ).join('');
+}
+
+function renderHero(){
+  document.getElementById('heroSection').style.display = tab==='home' ? 'block':'none';
+  document.getElementById('eyebrow').textContent = t('eyebrow');
+  document.getElementById('heroTitle').innerHTML = t('heroTitle');
+  document.getElementById('heroSub').textContent = t('heroSub');
+  document.getElementById('ctaBrowse').textContent = t('ctaBrowse');
+  document.getElementById('ctaPost').textContent = t('ctaPost');
+  document.getElementById('sealTop').textContent = t('sealTop');
+  document.getElementById('sealBottom').textContent = t('sealBottom');
+}
+
+function renderStats(){
+  const verifiedJobs = jobs.filter(j=>j.verified).length;
+  const verifiedTechs = techs.filter(x=>x.verified).length;
+  const stats = [
+    [new Set(jobs.map(j=>j.salon)).size || 0, t('stat1n')],
+    [techs.length, t('stat2n')],
+    [jobs.length, t('stat3n')],
+    [verifiedJobs+verifiedTechs, t('stat4n')],
+  ];
+  document.getElementById('statsRow').innerHTML = stats.map(([n,l])=>`<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+}
+
+function badge(verified){
+  return `<span class="badge ${verified?'verified':'unverified'}"><span class="dot"></span>${verified? t('verified'): t('unverified')}</span>`;
+}
+
+function payLabel(job){
+  if(job.payType==='hourly') return job.payAmount;
+  if(job.payType==='commission') return job.payAmount;
+  return job.payAmount;
+}
+
+function renderJobsList(){
+  const locs = ['ALL', ...new Set(jobs.map(j=>j.location))];
+  const positions = ['ALL', ...new Set(jobs.map(j=>j.position))];
+  const html = `
+    <div class="section-head">
+      <div><h2>${t('jobsTitle')}</h2><p>${t('jobsSub')}</p></div>
+      <button class="btn btn-primary" onclick="setTab('postJob')">+ ${t('ctaPost')}</button>
+    </div>
+    <div class="filters">
+      <input id="jobSearch" placeholder="${t('search')}" oninput="renderJobsGrid()" />
+      <select id="jobLocFilter" onchange="renderJobsGrid()">${locs.map(l=>`<option value="${l}">${l==='ALL'?t('filterAll'):l}</option>`).join('')}</select>
+      <select id="jobPosFilter" onchange="renderJobsGrid()">${positions.map(p=>`<option value="${p}">${p==='ALL'?t('filterPosition'):p}</option>`).join('')}</select>
+    </div>
+    <div class="grid" id="jobsGrid"></div>
+  `;
+  document.getElementById('mainArea').innerHTML = html;
+  renderJobsGrid();
+}
+
+function renderJobsGrid(){
+  const q = (document.getElementById('jobSearch')?.value || '').toLowerCase();
+  const loc = document.getElementById('jobLocFilter')?.value || 'ALL';
+  const pos = document.getElementById('jobPosFilter')?.value || 'ALL';
+  let list = jobs.filter(j =>
+    (loc==='ALL'||j.location===loc) &&
+    (pos==='ALL'||j.position===pos) &&
+    (j.salon.toLowerCase().includes(q) || j.position.toLowerCase().includes(q) || j.location.toLowerCase().includes(q))
+  );
+  const grid = document.getElementById('jobsGrid');
+  if(list.length===0){ grid.innerHTML = `<div class="empty">${t('empty1')}</div>`; return; }
+  grid.innerHTML = list.slice().reverse().map(j=>`
+    <div class="card">
+      <div class="card-top">
+        <div><div class="card-title">${j.position}</div><div class="card-sub">${j.salon}</div></div>
+        ${badge(j.verified)}
+      </div>
+      <div class="card-body">${j.desc||''}</div>
+      <div class="tags"><span class="tag">${j.location}</span><span class="tag">${j.payType}</span></div>
+      <div class="card-foot"><span class="pay">${payLabel(j)}</span><span class="loc">${t('posted')}: ${j.posted}</span></div>
+    </div>
+  `).join('');
+}
+
+function renderTechsList(){
+  const specs = ['ALL', ...new Set(techs.flatMap(x=>x.specialties))];
+  const html = `
+    <div class="section-head">
+      <div><h2>${t('techsTitle')}</h2><p>${t('techsSub')}</p></div>
+      <button class="btn btn-primary" onclick="setTab('createProfile')">+ ${t('navCreateProfile')}</button>
+    </div>
+    <div class="filters">
+      <input id="techSearch" placeholder="${t('search')}" oninput="renderTechsGrid()" />
+      <select id="techSpecFilter" onchange="renderTechsGrid()">${specs.map(s=>`<option value="${s}">${s==='ALL'?t('filterPosition'):s}</option>`).join('')}</select>
+    </div>
+    <div class="grid" id="techsGrid"></div>
+  `;
+  document.getElementById('mainArea').innerHTML = html;
+  renderTechsGrid();
+}
+
+function renderTechsGrid(){
+  const q = (document.getElementById('techSearch')?.value || '').toLowerCase();
+  const spec = document.getElementById('techSpecFilter')?.value || 'ALL';
+  let list = techs.filter(x =>
+    (spec==='ALL'||x.specialties.includes(spec)) &&
+    (x.name.toLowerCase().includes(q) || x.specialties.join(' ').toLowerCase().includes(q))
+  );
+  const grid = document.getElementById('techsGrid');
+  if(list.length===0){ grid.innerHTML = `<div class="empty">${t('empty2')}</div>`; return; }
+  grid.innerHTML = list.slice().reverse().map(x=>`
+    <div class="card">
+      <div class="card-top">
+        <div><div class="card-title">${x.name}</div><div class="card-sub">${x.licenseState} · ${x.license}</div></div>
+        ${badge(x.verified)}
+      </div>
+      <div class="card-body">${x.bio||''}</div>
+      <div class="tags">${x.specialties.map(s=>`<span class="tag">${s}</span>`).join('')}</div>
+      <div class="card-foot"><span class="pay">${x.years} ${t('yrs')}</span><span class="loc">${x.languages}</span></div>
+    </div>
+  `).join('');
+}
+
+function renderPostJob(){
+  document.getElementById('mainArea').innerHTML = `
+    <div class="form-wrap">
+      <div class="section-head"><div><h2>${t('postJobTitle')}</h2><p>${t('postJobSub')}</p></div></div>
+      <div class="form-card">
+        <div class="row2">
+          <div class="field"><label>${t('salonName')}</label><input id="f_salon" /></div>
+          <div class="field"><label>${t('location')}</label><input id="f_loc" placeholder="e.g. Falls Church, VA"/></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>${t('position')}</label><input id="f_pos" placeholder="e.g. Acrylic & Gel Tech"/></div>
+          <div class="field"><label>${t('payType')}</label>
+            <select id="f_payType"><option value="hourly">Hourly</option><option value="commission">Commission</option><option value="booth">Booth rent</option></select>
+          </div>
+        </div>
+        <div class="field"><label>${t('payAmount')}</label><input id="f_pay" placeholder="$24-30/hr + tips"/></div>
+        <div class="field"><label>${t('description')}</label><textarea id="f_desc"></textarea></div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="f_verify"/>
+          <div class="cb-text"><b>${t('verifyCheckSalon')}</b></div>
+        </div>
+        <div class="submit-row"><button class="btn btn-primary" onclick="submitJob()">${t('submitJob')}</button></div>
+      </div>
+    </div>
+  `;
+}
+
+async function submitJob(){
+  const salon = document.getElementById('f_salon').value.trim();
+  const location = document.getElementById('f_loc').value.trim();
+  const position = document.getElementById('f_pos').value.trim();
+  const payType = document.getElementById('f_payType').value;
+  const payAmount = document.getElementById('f_pay').value.trim();
+  const desc = document.getElementById('f_desc').value.trim();
+  const verified = document.getElementById('f_verify').checked;
+  if(!salon || !location || !position){ showToast(lang==='en'?'Please fill in salon, location, and position.':'Vui lòng điền tên tiệm, khu vực và vị trí.'); return; }
+  if(!configured()){ showToast(lang==='en'?'Backend not connected yet — see setup banner above.':'Chưa kết nối backend — xem hướng dẫn phía trên.'); return; }
+  try{
+    await airtablePost(JOBS_TABLE, {Salon:salon, Location:location, Position:position, PayType:payType, PayAmount:payAmount, Description:desc, Verified:verified});
+    await loadData();
+    showToast(t('jobPostedToast'));
+    setTab('jobs');
+  }catch(e){
+    console.error(e);
+    showToast(lang==='en'?'Could not save — check your Airtable setup.':'Không lưu được — kiểm tra cấu hình Airtable.');
+  }
+}
+
+function renderCreateProfile(){
+  document.getElementById('mainArea').innerHTML = `
+    <div class="form-wrap">
+      <div class="section-head"><div><h2>${t('createProfileTitle')}</h2><p>${t('createProfileSub')}</p></div></div>
+      <div class="form-card">
+        <div class="row2">
+          <div class="field"><label>${t('fullName')}</label><input id="p_name"/></div>
+          <div class="field"><label>${t('yearsExp')}</label><input id="p_years" type="number" min="0"/></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>${t('licenseNumber')}</label><input id="p_license"/></div>
+          <div class="field"><label>${t('licenseState')}</label><input id="p_state" placeholder="e.g. VA"/></div>
+        </div>
+        <div class="field"><label>${t('specialties')}</label><input id="p_specialties" placeholder="Acrylic, Gel-X, Nail Art"/></div>
+        <div class="row2">
+          <div class="field"><label>${t('languages')}</label><input id="p_lang" placeholder="Vietnamese, English"/></div>
+          <div class="field"><label>${t('availability')}</label><input id="p_avail" placeholder="Full-time"/></div>
+        </div>
+        <div class="field"><label>${t('bio')}</label><textarea id="p_bio"></textarea></div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="p_verify"/>
+          <div class="cb-text">${t('verifyCheckTech')}</div>
+        </div>
+        <div class="submit-row"><button class="btn btn-primary" onclick="submitProfile()">${t('submitProfile')}</button></div>
+      </div>
+    </div>
+  `;
+}
+
+async function submitProfile(){
+  const name = document.getElementById('p_name').value.trim();
+  const years = document.getElementById('p_years').value.trim() || '0';
+  const license = document.getElementById('p_license').value.trim();
+  const licenseState = document.getElementById('p_state').value.trim();
+  const specialties = document.getElementById('p_specialties').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const languages = document.getElementById('p_lang').value.trim();
+  const availability = document.getElementById('p_avail').value.trim();
+  const bio = document.getElementById('p_bio').value.trim();
+  const verified = document.getElementById('p_verify').checked && license.length>0;
+  if(!name || !license){ showToast(lang==='en'?'Please fill in your name and license number.':'Vui lòng điền tên và số bằng.'); return; }
+  if(!configured()){ showToast(lang==='en'?'Backend not connected yet — see setup banner above.':'Chưa kết nối backend — xem hướng dẫn phía trên.'); return; }
+  try{
+    await airtablePost(TECHS_TABLE, {Name:name, License:license, LicenseState:licenseState, Years:years, Specialties:(specialties.length?specialties:['General']).join(', '), Languages:languages, Availability:availability, Bio:bio, Verified:verified});
+    await loadData();
+    showToast(t('profileCreatedToast'));
+    setTab('techs');
+  }catch(e){
+    console.error(e);
+    showToast(lang==='en'?'Could not save — check your Airtable setup.':'Không lưu được — kiểm tra cấu hình Airtable.');
+  }
+}
+
+function renderBanner(){
+  const el = document.getElementById('bannerArea');
+  if(!configured()){
+    el.innerHTML = `<div class="banner">
+      <b>${lang==='en'?'Setup needed':'Cần thiết lập'}</b>
+      ${lang==='en'
+        ? 'This demo is running on sample data only. To make job posts and profiles actually save, connect a free Airtable base — open this file\'s code and fill in <code>AIRTABLE_TOKEN</code> and <code>AIRTABLE_BASE_ID</code> near the top of the script.'
+        : 'Bản demo này chỉ đang chạy với dữ liệu mẫu. Để tin đăng và hồ sơ thực sự được lưu, hãy kết nối một Airtable base miễn phí — mở code của file này và điền <code>AIRTABLE_TOKEN</code> và <code>AIRTABLE_BASE_ID</code> ở đầu script.'}
+    </div>`;
+  } else if(dataError){
+    el.innerHTML = `<div class="banner error">
+      <b>${lang==='en'?'Connection error':'Lỗi kết nối'}</b>
+      ${lang==='en'?'Could not load data from Airtable: ':'Không tải được dữ liệu từ Airtable: '}<code>${dataError}</code>
+    </div>`;
+  } else {
+    el.innerHTML = '';
+  }
+}
+
+function render(){
+  renderNav();
+  renderHero();
+  renderStats();
+  renderBanner();
+  if(tab==='home'){
+    document.getElementById('mainArea').innerHTML = '';
+  } else if(tab==='jobs'){ renderJobsList(); }
+  else if(tab==='techs'){ renderTechsList(); }
+  else if(tab==='postJob'){ renderPostJob(); }
+  else if(tab==='createProfile'){ renderCreateProfile(); }
+  document.getElementById('footerText').textContent = t('footer');
+}
+
+loadData();
+</script>
+</body>
+</html>
