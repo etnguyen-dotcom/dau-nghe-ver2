@@ -296,8 +296,8 @@ const TECHS_TABLE = "Techs";
 
 function configured(){
   return AIRTABLE_TOKEN && AIRTABLE_BASE_ID
-    && AIRTABLE_TOKEN !== "patRYw002bs6LCBHg.ed5887c81176c1156aaf213744e09794ada3b4e331e966c70dc1d4b98f4939bf"
-    && AIRTABLE_BASE_ID !== "appSwZdqAt1t8tdlu";
+    && AIRTABLE_TOKEN !== "PASTE_YOUR_TOKEN_HERE"
+    && AIRTABLE_BASE_ID !== "PASTE_YOUR_BASE_ID_HERE";
 }
 async function airtableGet(table){
   const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(table)}?pageSize=100`, {
